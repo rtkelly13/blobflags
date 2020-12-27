@@ -1,0 +1,61 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Server",
+            "command": "dotnet",
+            "args": [ "build" ],
+            "type": "shell",
+            "options": { "cwd": "${workspaceFolder}/ui/src/Server" },
+            "group": "build",
+            "problemMatcher": [ "$msCompile" ]
+        },
+        {
+            "label": "Watch Client and Server",
+            "command": "dotnet",
+            "args": [ "fake", "build", "-t", "Run" ],
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "vsCodeSession": "true"
+                }
+            },
+            "group": "build",
+            "isBackground": true,
+            "problemMatcher": [
+                "$fable-webpack"
+            ],
+        },
+        {
+            "label": "Watch Client",
+            "command": "dotnet",
+            "args": [ "fake", "build", "-t", "RunClient" ],
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "build",
+            "isBackground": true,
+            "problemMatcher": [
+                "$fable-webpack"
+            ],
+        },
+        {
+            "label": "Terminate All Tasks",
+            "command": "echo ${input:terminate}",
+            "type": "shell",
+            "problemMatcher": []
+          }
+    ],
+    "inputs": [
+        {
+            "id": "terminate",
+            "type": "command",
+            "command": "workbench.action.tasks.terminate",
+            "args": "terminateAll"
+        }
+    ]
+}

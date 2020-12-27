@@ -4,9 +4,9 @@
 .idea/
 .ionide/
 .vs/
-deploy/
+ui/deploy/
 **/obj
-**/bin
+**/bin/
 packages/
 paket-files/
 **/node_modules

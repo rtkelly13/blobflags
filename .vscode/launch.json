@@ -1,0 +1,54 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Empty",
+            "program": "${workspaceFolder}/.vscode/empty.js",
+            "request": "launch",
+            "preLaunchTask": "Watch Client",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+        {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}/ui/src/Client"
+        },
+        {
+            "name": "Debug Server",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "Build Server",
+            "program": "${workspaceFolder}/ui/src/Server/bin/Debug/netcoreapp3.1/Server.dll",
+            "args": [],
+            "logging": {
+                "moduleLoad": false
+            },
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        {
+            "name": "Debug Client",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}/ui/src/Client",
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+                "webpack:///*": "${workspaceFolder}/*",
+            },
+            "postDebugTask": "Terminate All Tasks"
+        }
+    ],
+    "compounds": [{
+        "name": "Debug SAFE App",
+        "configurations": ["Debug Server", "Debug Client", "Empty"],
+    }]
+}
