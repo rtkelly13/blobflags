@@ -24,6 +24,8 @@ group UI
     nuget Fable.React
     nuget Fable.Remoting.Client
     nuget Fulma
+    nuget Fable.FontAwesome.Free
+    nuget Fulma.Extensions.Wikiki.Switch
 
 group Build
     source https://api.nuget.org/v3/index.json

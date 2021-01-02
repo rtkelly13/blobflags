@@ -42,8 +42,14 @@
             "webRoot": "${workspaceFolder}/ui/src/Client",
             "sourceMaps": true,
             "sourceMapPathOverrides": {
-                "webpack:///*": "${workspaceFolder}/*",
+                "webpack:///*": "${workspaceFolder}/ui/*",
             },
+            "skipFiles": [
+                "${workspaceFolder}/ui/node_modules/**/*.js",
+                "${workspaceFolder}/ui/.fable/**/*.js",
+                "${workspaceFolder}/ui/.fable/**/*.fs",
+                "<node_internals>/**/*.js",
+            ],
             "postDebugTask": "Terminate All Tasks"
         }
     ],

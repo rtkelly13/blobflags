@@ -19,6 +19,7 @@ var CONFIG = {
     fsharpEntry: './src/Client/Client.fsproj',
     outputDir: './deploy/public',
     assetsDir: './src/Client/public',
+    mainScss: './src/Client/scss/main.scss',
     devServerPort: 8080,
     // When using webpack-dev-server, you may need to redirect some calls
     // to a external API server. See https://webpack.js.org/configuration/dev-server/#devserver-proxy
@@ -68,9 +69,23 @@ module.exports = {
     // have a faster HMR support. In production bundle styles together
     // with the code because the MiniCssExtractPlugin will extract the
     // CSS in a separate files.
-    entry: {
-        app: resolve(CONFIG.fsharpEntry)
-    },
+    entry: isProduction ? // We don't use the same entry for dev and production, to make HMR over style quicker for dev env
+        {
+            demo: [
+                "@babel/polyfill",
+                CONFIG.fsharpEntry,
+                CONFIG.mainScss
+            ]
+        } :
+        {
+            app: [
+                "@babel/polyfill",
+                CONFIG.fsharpEntry
+            ],
+            style: [
+                CONFIG.mainScss
+            ]
+        },
     // Add a hash to the output file name in production
     // to prevent browser caching if code changes
     output: {

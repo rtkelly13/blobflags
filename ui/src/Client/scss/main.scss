@@ -1,0 +1,47 @@
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts/";
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
+// First include initial variables and helpers function from Bulma
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+
+// Setup custom Colors
+
+$family-serif: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+
+//Triadic Colours https://www.colorhexa.com/ea7e5d
+$custom-purple: #793399;
+$custom-purple-invert: findColorInvert($custom-purple);
+$custom-orange: #ea7e5d;
+$custom-orange-invert: findColorInvert($custom-orange);
+$custom-green:#5dea7e;
+$custom-green-invert: findColorInvert($custom-green);
+
+$family-primary: $family-serif;
+
+$primary:$custom-purple;
+$primary-invert:$custom-purple-invert;
+$success:$custom-green;
+$success-invert:$custom-green-invert;
+$warning: $custom-orange;
+$warning-invert: $custom-orange-invert;
+
+
+// Import the derived variables from Bulma
+// It will use our $custom-colors
+@import "~bulma/sass/utilities/derived-variables";
+
+
+
+// Since bulma 7.0 we have `custom-colors` and `custom-shades`
+$custom-colors: (
+  "custom-orange":($custom-orange, $custom-orange),
+  "custom-purple": ($custom-purple, $custom-purple-invert),
+  "custom-green": ($custom-green, $custom-green-invert),
+);
+
+// Import all Bulma
+@import '~bulma/bulma.sass';
