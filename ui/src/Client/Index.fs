@@ -1,114 +1,57 @@
 module Index
 
 open Elmish
-open Fable.Remoting.Client
-open Shared
+open Fable.React
+open Fable.React.Props
 
 type Model =
-    { Todos: Todo list
-      Input: string }
+    { Route: Page.Route
+      Page: Page.Model
+      Navigation: Navigation.Model }
 
 type Msg =
-    | GotTodos of Todo list
-    | SetInput of string
-    | AddTodo
-    | AddedTodo of Todo
+    | PageMsg of Page.Msg
+    | NavigationMsg of Navigation.Msg
 
-let todosApi =
-    Remoting.createApi()
-    |> Remoting.withRouteBuilder Route.builder
-    |> Remoting.buildProxy<ITodosApi>
+let init (initialRoute: Option<Page.Route>) =
+    let route =
+        initialRoute |> Option.defaultValue Page.HomeRoute
 
-let init(): Model * Cmd<Msg> =
-    let model =
-        { Todos = []
-          Input = "" }
-    let cmd = Cmd.OfAsync.perform todosApi.getTodos () GotTodos
-    model, cmd
+    let navInit = Navigation.init ()
+
+    let buildModel i =
+        { Route = route
+          Page = i
+          Navigation = navInit }
+
+    Page.init route
+    |> Extensions.mapUpdate buildModel PageMsg
 
 let update (msg: Msg) (model: Model): Model * Cmd<Msg> =
     match msg with
-    | GotTodos todos ->
-        { model with Todos = todos }, Cmd.none
-    | SetInput value ->
-        { model with Input = value }, Cmd.none
-    | AddTodo ->
-        let todo = Todo.create model.Input
-        let cmd = Cmd.OfAsync.perform todosApi.addTodo todo AddedTodo
-        { model with Input = "" }, cmd
-    | AddedTodo todo ->
-        { model with Todos = model.Todos @ [ todo ] }, Cmd.none
+    | PageMsg pageMsg ->
+        let mapModel pageModel = { model with Page = pageModel }
 
-open Fable.React
-open Fable.React.Props
-open Fulma
+        Page.update pageMsg model.Page
+        |> Extensions.mapUpdate mapModel PageMsg
+    | NavigationMsg navMsg ->
+        let mapModel navModel = { model with Navigation = navModel }
 
-let navBrand =
-    Navbar.Brand.div [ ] [
-        Navbar.Item.a [
-            Navbar.Item.Props [ Href "https://safe-stack.github.io/" ]
-            Navbar.Item.IsActive true
-        ] [
-            img [
-                Src "/favicon.png"
-                Alt "Logo"
-            ]
-        ]
-    ]
+        Navigation.update navMsg model.Navigation
+        |> Extensions.mapUpdate mapModel NavigationMsg
 
-let containerBox (model : Model) (dispatch : Msg -> unit) =
-    Box.box' [ ] [
-        Content.content [ ] [
-            Content.Ol.ol [ ] [
-                for todo in model.Todos do
-                    li [ ] [ str todo.Description ]
-            ]
-        ]
-        Field.div [ Field.IsGrouped ] [
-            Control.p [ Control.IsExpanded ] [
-                Input.text [
-                  Input.Value model.Input
-                  Input.Placeholder "What needs to be done?"
-                  Input.OnChange (fun x -> SetInput x.Value |> dispatch) ]
-            ]
-            Control.p [ ] [
-                Button.a [
-                    Button.Color IsPrimary
-                    Button.Disabled (Todo.isValid model.Input |> not)
-                    Button.OnClick (fun _ -> dispatch AddTodo)
-                ] [
-                    str "Add"
-                ]
-            ]
-        ]
-    ]
+let updateUrl (updatedRoute: Option<Page.Route>) model =
+    let route =
+        updatedRoute
+        |> Option.defaultWith (fun _ -> failwith "Route not updated properly")
 
-let view (model : Model) (dispatch : Msg -> unit) =
-    Hero.hero [
-        Hero.Color IsPrimary
-        Hero.IsFullHeight
-        Hero.Props [
-            Style [
-                Background """linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://unsplash.it/1200/900?random") no-repeat center center fixed"""
-                BackgroundSize "cover"
-            ]
-        ]
-    ] [
-        Hero.head [ ] [
-            Navbar.navbar [ ] [
-                Container.container [ ] [ navBrand ]
-            ]
-        ]
+    let buildModel i = { model with Route = route; Page = i }
 
-        Hero.body [ ] [
-            Container.container [ ] [
-                Column.column [
-                    Column.Width (Screen.All, Column.Is6)
-                    Column.Offset (Screen.All, Column.Is3)
-                ] [
-                    Heading.p [ Heading.Modifiers [ Modifier.TextAlignment (Screen.All, TextAlignment.Centered) ] ] [ str "client" ]
-                    containerBox model dispatch
-                ]
-            ]
-        ]
+    Page.init route
+    |> Extensions.mapUpdate buildModel PageMsg
+
+let view (model: Model) (dispatch: Msg -> unit) =
+    div [] [
+        Navigation.view model.Navigation (NavigationMsg >> dispatch)
+        Page.view model.Page (PageMsg >> dispatch)
     ]

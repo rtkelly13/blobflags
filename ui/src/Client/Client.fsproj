@@ -7,6 +7,11 @@
   <ItemGroup>
     <None Include="index.html" />
     <None Include="paket.references" />
+    <Compile Include="Extensions.fs" />
+    <Compile Include="Pages/Home.fs" />
+    <Compile Include="Pages/Environment.fs" />
+    <Compile Include="Navigation.fs" />
+    <Compile Include="Page.fs" />
     <Compile Include="Index.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>

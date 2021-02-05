@@ -23,25 +23,24 @@ $custom-green-invert: findColorInvert($custom-green);
 $family-primary: $family-serif;
 
 $primary:$custom-purple;
-$primary-invert:$custom-purple-invert;
 $success:$custom-green;
-$success-invert:$custom-green-invert;
 $warning: $custom-orange;
-$warning-invert: $custom-orange-invert;
+
+$link-hover: #00D1B2;
 
 
 // Import the derived variables from Bulma
 // It will use our $custom-colors
 @import "~bulma/sass/utilities/derived-variables";
 
-
-
-// Since bulma 7.0 we have `custom-colors` and `custom-shades`
-$custom-colors: (
-  "custom-orange":($custom-orange, $custom-orange),
-  "custom-purple": ($custom-purple, $custom-purple-invert),
-  "custom-green": ($custom-green, $custom-green-invert),
-);
-
 // Import all Bulma
 @import '~bulma/bulma.sass';
+@import '~bulma-pageloader/dist/css/bulma-pageloader.sass';
+
+
+.navbar-bg {
+    background-color: $custom-purple;
+    .title {
+        color: $white;
+    }
+}

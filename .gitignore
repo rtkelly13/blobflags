@@ -14,3 +14,5 @@ release.cmd
 release.sh
 *.orig
 *.DotSettings.user
+
+**/debug.log

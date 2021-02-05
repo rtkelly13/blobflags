@@ -72,14 +72,12 @@ module.exports = {
     entry: isProduction ? // We don't use the same entry for dev and production, to make HMR over style quicker for dev env
         {
             demo: [
-                "@babel/polyfill",
                 CONFIG.fsharpEntry,
                 CONFIG.mainScss
             ]
         } :
         {
             app: [
-                "@babel/polyfill",
                 CONFIG.fsharpEntry
             ],
             style: [

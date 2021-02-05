@@ -1,3 +1,5 @@
-group UI
+group Server
     Saturn
-    Fable.Remoting.Giraffe
+    FsToolkit.ErrorHandling
+    Thoth.Json.Giraffe
+    SixLabors.ImageSharp.Web
