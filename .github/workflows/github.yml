@@ -1,0 +1,47 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.102
+    - name: Setup NodeJS
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - uses: actions/cache@v2
+      with:
+        path: |
+            ~/.nuget/packages
+            !~/.nuget/packages/unwanted
+        key: ${{ runner.os }}-nuget-${{ hashFiles('paket.lock') }}
+        restore-keys: |
+            ${{ runner.os }}-nuget-
+    - uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+            ${{ runner.os }}-node-
+    - name: Install dotnet dependencies
+      run: |
+        dotnet tool restore
+        dotnet restore
+    - name: Install npm dependencies
+      run: |
+        cd ./ui && npm install
+    - name: Build
+      run: dotnet fake build
+
