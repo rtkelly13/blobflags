@@ -12,16 +12,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 5.0.102
     - name: Setup NodeJS
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v4
       with:
         node-version: '12'
-    - uses: actions/cache@v2
+    - uses: actions/cache@v4
       with:
         path: |
             ~/.nuget/packages
@@ -29,7 +29,7 @@ jobs:
         key: ${{ runner.os }}-nuget-${{ hashFiles('paket.lock') }}
         restore-keys: |
             ${{ runner.os }}-nuget-
-    - uses: actions/cache@v2
+    - uses: actions/cache@v4
       with:
         path: ~/.npm
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
