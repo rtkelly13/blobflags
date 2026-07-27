@@ -1,5 +1,0 @@
-group Server
-    Saturn
-    FsToolkit.ErrorHandling
-    Thoth.Json.Giraffe
-    SixLabors.ImageSharp.Web
