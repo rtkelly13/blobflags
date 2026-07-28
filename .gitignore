@@ -1,18 +1,17 @@
-.fable/
-.fake/
-.farmer/
 .idea/
 .ionide/
 .vs/
-deploy/
 **/obj
 **/bin
-packages/
-paket-files/
 **/node_modules
-release.cmd
-release.sh
+src/BlobFlags.Client/build/
+src/BlobFlags.Server/wwwroot/
+data/
 *.orig
 *.DotSettings.user
 
 **/debug.log
+
+# Local tasks and notes
+TODO.md
+todo.md

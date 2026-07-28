@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BlobFlags.Client/BlobFlags.Client.fsproj" />
+    <Project Path="src/BlobFlags.Server/BlobFlags.Server.fsproj" />
+    <Project Path="src/BlobFlags/BlobFlags.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BlobFlags.Tests/BlobFlags.Tests.csproj" />
+  </Folder>
+</Solution>

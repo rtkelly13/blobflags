@@ -1,0 +1,23 @@
+<Project>
+  <ItemGroup>
+    <!-- F# -->
+    <PackageVersion Include="FSharp.Core" Version="10.1.302" />
+
+    <!-- SDK library (netstandard2.0 target) -->
+    <PackageVersion Include="System.Text.Json" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Bcl.TimeProvider" Version="10.0.0" />
+
+    <!-- Tests -->
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageVersion Include="Microsoft.Extensions.TimeProvider.Testing" Version="9.7.0" />
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.1" />
+
+    <!-- Fable client -->
+    <PackageVersion Include="Fable.Core" Version="5.2.0" />
+    <PackageVersion Include="Feliz" Version="3.3.3" />
+    <PackageVersion Include="Thoth.Json" Version="10.5.1" />
+    <PackageVersion Include="Fable.SimpleHttp" Version="3.6.0" />
+    <PackageVersion Include="Fable.Browser.Dom" Version="2.20.0" />
+  </ItemGroup>
+</Project>
