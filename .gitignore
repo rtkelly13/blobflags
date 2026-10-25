@@ -15,3 +15,6 @@ data/
 # Local tasks and notes
 TODO.md
 todo.md
+
+# Scratch: worktrees, logs and agent notes (orca.yaml creates it)
+/temp/
