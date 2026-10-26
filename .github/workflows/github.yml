@@ -17,7 +17,7 @@ jobs:
         uses: ls-lint/action@a87c5eb4fb26d7af1bd0adba203dd1e76f7e94eb # v2.3.2
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@39cd14951b08e74b54015e9e001cdefcf80e669f # v4.3.0
+        uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
         with:
           dotnet-version: 10.0.x
 
