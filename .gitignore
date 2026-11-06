@@ -15,3 +15,10 @@ data/
 # Local tasks and notes
 TODO.md
 todo.md
+
+# Temporary files and git worktrees
+/temp/
+temp/
+
+# MSBuild binary logs
+*.binlog
